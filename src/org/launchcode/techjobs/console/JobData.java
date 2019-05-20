@@ -87,9 +87,9 @@ public class JobData {
 
     public static ArrayList<HashMap<String, String>> findByValue(String value){
         int validity;
-        String aValue;
-        String tmp;
-        String[] aList;
+        String keyValue;
+        String word;
+        String[] valueSplit;
 
         loadData();
 
@@ -102,8 +102,8 @@ public class JobData {
             //Check value as a whole string
             for(String key:keys)
             {
-                aValue = allJobs.get(i).get(key);
-                validity = aValue.compareToIgnoreCase(value);
+                keyValue = allJobs.get(i).get(key);
+                validity = keyValue.compareToIgnoreCase(value);
 
                 if (validity == 0)
                 {
@@ -112,12 +112,12 @@ public class JobData {
                 //split the key value by space and check for value
                 else
                     {
-                        aList = aValue.split(" ");
+                        valueSplit = keyValue.split(" ");
 
-                        for (int j = 0; j < aList.length; ++j)
+                        for (int j = 0; j < valueSplit.length; ++j)
                         {
-                            tmp = aList[j];
-                            validity = tmp.compareToIgnoreCase(value);
+                            word = valueSplit[j];
+                            validity = word.compareToIgnoreCase(value);
 
                             if (validity == 0)
                             {
@@ -125,10 +125,10 @@ public class JobData {
                             }
                             else
                                 {
-                                    aList = aValue.split("- ");
-                                    for (int k = 0; k < aList.length; ++k) {
-                                        tmp = aList[k];
-                                        validity = tmp.compareToIgnoreCase(value);
+                                    valueSplit = keyValue.split("- ");
+                                    for (int k = 0; k < valueSplit.length; ++k) {
+                                        word = valueSplit[k];
+                                        validity = word.compareToIgnoreCase(value);
 
                                         if (validity == 0) {
                                             jobs.add(allJobs.get(i));
