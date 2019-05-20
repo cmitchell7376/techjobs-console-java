@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by LaunchCode
@@ -81,6 +82,63 @@ public class JobData {
             }
         }
 
+        return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value){
+        int validity;
+        String aValue;
+        String tmp;
+        String[] aList;
+
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (int i = 0; i < allJobs.size(); ++i)
+        {
+            Set<String> keys = allJobs.get(i).keySet();
+
+            //Check value as a whole string
+            for(String key:keys)
+            {
+                aValue = allJobs.get(i).get(key);
+                validity = aValue.compareToIgnoreCase(value);
+
+                if (validity == 0)
+                {
+                    jobs.add(allJobs.get(i));
+                }
+                //split the key value by space and check for value
+                else
+                    {
+                        aList = aValue.split(" ");
+
+                        for (int j = 0; j < aList.length; ++j)
+                        {
+                            tmp = aList[j];
+                            validity = tmp.compareToIgnoreCase(value);
+
+                            if (validity == 0)
+                            {
+                                jobs.add(allJobs.get(i));
+                            }
+                            else
+                                {
+                                    aList = aValue.split("- ");
+                                    for (int k = 0; k < aList.length; ++k) {
+                                        tmp = aList[k];
+                                        validity = tmp.compareToIgnoreCase(value);
+
+                                        if (validity == 0) {
+                                            jobs.add(allJobs.get(i));
+                                        }
+                                    }
+                            }
+                        }
+                    }
+            }
+        }
         return jobs;
     }
 
