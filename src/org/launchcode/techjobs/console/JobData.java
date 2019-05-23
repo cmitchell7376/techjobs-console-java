@@ -70,14 +70,16 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
+        int validity;
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
 
             String aValue = row.get(column);
+            validity = aValue.compareToIgnoreCase(value);
 
-            if (aValue.contains(value)) {
+            if (validity == 0) {
                 jobs.add(row);
             }
         }
@@ -90,37 +92,11 @@ public class JobData {
         String keyValue;
         String word;
         String[] valueSplit;
-        //new var
-        String[] searchSplit = value.split(" ");
-        Boolean found;
 
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (int i = 0; i < allJobs.size(); ++i) {
-            found = false;
-            Set<String> keys = allJobs.get(i).keySet();
-
-            //Check value as a whole string
-            for (String key : keys) {
-                if (found == true){
-                    continue;
-                }
-                keyValue = allJobs.get(i).get(key);
-                valueSplit = keyValue.split(" ");
-                int size = valueSplit.length;
-
-                for(int j = 0; j < valueSplit.length; ++j){
-                    if(searchSplit[0].equalsIgnoreCase(valueSplit[j])){
-                        jobs.add(allJobs.get(i));
-                        found = true;
-                    }
-                }
-
-            }
-        }
-        /*
         for (int i = 0; i < allJobs.size(); ++i)
         {
             Set<String> keys = allJobs.get(i).keySet();
@@ -165,7 +141,7 @@ public class JobData {
                     }
             }
         }
-         */
+
         return jobs;
     }
 
