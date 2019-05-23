@@ -70,14 +70,16 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
+        int validity;
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
 
             String aValue = row.get(column);
+            validity = aValue.compareToIgnoreCase(value);
 
-            if (aValue.contains(value)) {
+            if (validity == 0) {
                 jobs.add(row);
             }
         }
